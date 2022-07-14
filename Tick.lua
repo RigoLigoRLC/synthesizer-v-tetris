@@ -1,4 +1,39 @@
 
+--[[
+    Synthesizer V Studio Pro Script Group
+    Tetris Game. MIT License.
+    The complete package includes W.lua, A.lua, S.lua and D.lua, all under the
+    same license.
+
+    Copyright 2022 RigoLigo
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to
+    deal in the Software without restriction, including without limitation the
+    rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+    sell copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+    IN THE SOFTWARE.
+]]
+
+--[[
+
+    You're about to see some true magic that even I don't fully understand.
+    Don't try to comprehend the code.
+
+]]
+
+
 function getClientInfo()
     return {
         name = SV:T("Main"),
@@ -124,9 +159,9 @@ function rotate()
     local orgCol = currentBlock[1][2]
     for i = 2, #currentBlock do
         local a = currentBlock[i]
-        assert(a[2] >= orgCol)
-        assert(a[1] <= orgRow)
-        print("size:", size, "orgRow: ", orgRow, " orgCol:", orgCol, " a[1]:", a[1], " a[2]:", a[2])
+--         assert(a[2] >= orgCol)
+--         assert(a[1] <= orgRow)
+--         print("size:", size, "orgRow: ", orgRow, " orgCol:", orgCol, " a[1]:", a[1], " a[2]:", a[2])
         buf[orgRow - a[1] + 1][a[2] - orgCol + 1] = a[3]
     end
 
@@ -192,7 +227,7 @@ function doesSettle()
         return true
     else
         -- bottom touching check
-        print("CHECK")
+--         print("CHECK")
         for i = 2, #currentBlock do
             local a = currentBlock[i]
             print(a)
@@ -246,6 +281,11 @@ function settle()
         -- transfer currentBlock to map
         for i = 2, #currentBlock do
             local block = currentBlock[i]
+            if map[block[1]][block[2]] ~= nil then
+                SV:showMessageBox("Tetris", "Game Over!")
+                SV:finish()
+                return false
+            end
             map[block[1]][block[2]] = block[3]
         end
         currentBlock = {}
@@ -273,6 +313,7 @@ function settle()
             end
         end
     end
+    return true
 end
 
 function tick()
