@@ -343,6 +343,13 @@ function ControlTicker()
 end
 
 function main()
+    local nav = SV:getMainEditor():getNavigation()
+    local noteHeight = nav:v2y(30) - nav:v2y(31)
+    nav:setTimeLeft(0) -- scroll horizontally
+    nav:setTimeScale(24 / SV:quarter2Blick(Unit)) -- set the horizontal zoom to make the blocks rectangle
+    nav:setValueCenter(Bottom + Height / 2) -- scroll vertically to center of the play field
+
+
     scope = SV:getMainEditor():getCurrentGroup():getTarget()
     init()
 

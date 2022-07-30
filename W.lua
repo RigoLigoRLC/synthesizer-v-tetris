@@ -1,7 +1,7 @@
 
 function getClientInfo()
     return {
-        name = SV:T("W"),
+        name = SV:T("Tetris-W"),
         category = "Tetris",
         author = "RigoLigo",
         versionNumber = 2
